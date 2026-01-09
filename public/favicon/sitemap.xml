@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <!-- Homepage FR -->
+  <url>
+    <loc>https://leadertgn.netlify.app/</loc>
+    <lastmod>2026-01-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leadertgn.netlify.app/?lang=en" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leadertgn.netlify.app/" />
+  </url>
+  
+  <!-- Section Projects -->
+  <url>
+    <loc>hhttps://leadertgn.netlify.app/#projects</loc>
+    <lastmod>2026-01-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Section Skills -->
+  <url>
+    <loc>https://leadertgn.netlify.app/#skills</loc>
+    <lastmod>2026-01-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Section About -->
+  <url>
+    <loc>https://leadertgn.netlify.app/#about</loc>
+    <lastmod>2026-01-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Section Contact -->
+  <url>
+    <loc>https://leadertgn.netlify.app/#contact</loc>
+    <lastmod>2026-01-09</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+</urlset>

@@ -1,0 +1,7 @@
+# robots.txt for https://leadertgn.netlify.app
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://leadertgn.netlify.app/sitemap.xml
