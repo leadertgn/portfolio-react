@@ -13,6 +13,8 @@ export default function Contact() {
     message: ""
   })
   const [status, setStatus] = useState('')
+  const [errorType, setErrorType] = useState('')
+
   const isFormInvalid = Object.values(formData).some(v => v.trim() === "")
   const handleChange = (e) => {
     setFormData({
@@ -21,30 +23,57 @@ export default function Contact() {
     })
   }
 
-const handleSubmit = (e) => {
+const handleSubmit = async (e) => {
   e.preventDefault()
 
-  // Vérifie s'il y a un champ vide ou uniquement des espaces
+  // Champs vides
   const hasEmptyField = Object.values(formData).some(
     value => value.trim() === ""
   )
 
   if (hasEmptyField) {
+    setErrorType('empty')
     setStatus('error')
     return
   }
 
-  // Simulation envoi
-  setStatus('sending')
+  // Email invalide (simple mais efficace)
+  const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)
 
-  setTimeout(() => {
-    console.log('Form submitted:', formData)
+  if (!validEmail) {
+    setErrorType('email')
+    setStatus('error')
+    return
+  }
+
+  setStatus('sending')
+  setErrorType('')
+
+  try {
+    const response = await fetch("https://formspree.io/f/xnjjajqj", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(formData)
+    })
+
+    if (!response.ok) throw new Error()
+
     setStatus('success')
     setFormData({ name: '', email: '', message: '' })
 
     setTimeout(() => setStatus(''), 3000)
-  }, 1000)
+
+  } catch (e) {
+    console.log("Erreur :", e)
+    setErrorType('server')
+    setStatus('error')
+  }
 }
+
+
 
 
   return (
@@ -120,7 +149,7 @@ const handleSubmit = (e) => {
             {/* Button */}
             <button
               onClick={handleSubmit}
-              disabled={status === 'sending' | isFormInvalid}
+              disabled={status === 'sending' || isFormInvalid}
               className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-semibold py-3 px-6 rounded-lg transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 disabled:cursor-not-allowed"
             >
               {status === 'sending' ? (
@@ -145,7 +174,9 @@ const handleSubmit = (e) => {
             
             {status === 'error' && (
               <div className="p-4 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 rounded-lg text-center font-medium animate-slideDown">
-                {t.error}
+                    {errorType === 'empty' && t.errorEmpty}
+                    {errorType === 'email' && t.errorEmail}
+                    {errorType === 'server' && t.errorServer}
               </div>
             )}
           </div>
