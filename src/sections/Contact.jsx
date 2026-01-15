@@ -73,9 +73,6 @@ const handleSubmit = async (e) => {
   }
 }
 
-
-
-
   return (
     <section className="py-20 px-4 bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
       <div className="max-w-2xl mx-auto">

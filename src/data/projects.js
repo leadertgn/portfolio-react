@@ -15,8 +15,7 @@ export const projects = [
     ],
     image: "/images/portfolio.png",
     links: {
-      "Website": "https://mon-portfolio.vercel.app",
-      "Github": "https://github.com/leadertgn/portfolio"
+      "Website": "https://leadertgn.netlify.app/",
     }
   },
   {
@@ -36,7 +35,7 @@ export const projects = [
       { name: "Firebase-Auth-Realtime-Hosting" },
       { name: "ESP8266" }
     ],
-    image: "https://leadertgn.github.io/mon-portfolio/assets/images/agrisense_connexion.webp",
+    image: "/images/agrisense.png",
     links: {
       "Website": "https://essai-iot-52c18.web.app/"
     }
@@ -60,5 +59,28 @@ export const projects = [
     links: {
       "website": "https://leadertgn.github.io/application-meteo/"
     }
-  }
+  },
+  {
+    id: 4,
+    title: {
+      fr: "Smart Grow - Supervision Industrielle & IoT",
+      en: "Smart Grow - Industrial Monitoring & IoT"
+    },
+    description: {
+      fr: "Système d'irrigation autonome haute fiabilité avec architecture Fail-safe. Intègre un moteur de décision hybride (Capteurs + API Météo) et un dashboard analytique temps réel. L'accès est sécurisé : contactez-moi pour obtenir des identifiants de démonstration.",
+      en: "High-reliability autonomous irrigation system with Fail-safe architecture. Features a hybrid decision engine (Sensors + Weather API) and a real-time analytical dashboard. Access is secured: contact me for demo credentials."
+    },
+    stack: [
+      { name: "React (Vite)" },
+      { name: "Node.js (Express)" },
+      { name: "Firebase (RTDB & Auth)" },
+      { name: "C++ (ESP32/ESP8266)" },
+      { name: "TailwindCSS" },
+      { name: "Recharts" }
+    ],
+    image: "/images/smart_grow.png", 
+    links: {
+      "Website": "https://smart-irrigation-system-insti.netlify.app/",
+    }
+  },
 ]
