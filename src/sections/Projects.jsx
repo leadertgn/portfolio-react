@@ -1,5 +1,5 @@
-import ProjectCard from "../components/ProjectCard"
-import { projects } from "../data/projects"
+import ProjectCard from '../components/ProjectCard'
+import { projects } from '../data/projects'
 import { useLang } from '../contexts/LanguageContext'
 import { translations } from '../data/translations'
 
@@ -14,9 +14,9 @@ export default function Projects() {
           {t.title}
         </h2>
         <div className="w-24 h-1 bg-blue-600 dark:bg-blue-400 mx-auto mb-12 rounded-full" />
-        
+
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map(project => (
+          {projects.map((project) => (
             <ProjectCard
               key={project.id}
               image={project.image}

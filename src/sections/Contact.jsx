@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState } from 'react'
 import { useLang } from '../contexts/LanguageContext'
 import { translations } from '../data/translations'
 import { Send } from 'lucide-react'
@@ -6,72 +6,69 @@ import { Send } from 'lucide-react'
 export default function Contact() {
   const { lang } = useLang()
   const t = translations[lang].contact
-  
+
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: ""
+    name: '',
+    email: '',
+    message: '',
   })
   const [status, setStatus] = useState('')
   const [errorType, setErrorType] = useState('')
 
-  const isFormInvalid = Object.values(formData).some(v => v.trim() === "")
+  const isFormInvalid = Object.values(formData).some((v) => v.trim() === '')
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     })
   }
 
-const handleSubmit = async (e) => {
-  e.preventDefault()
+  const handleSubmit = async (e) => {
+    e.preventDefault()
 
-  // Champs vides
-  const hasEmptyField = Object.values(formData).some(
-    value => value.trim() === ""
-  )
+    // Champs vides
+    const hasEmptyField = Object.values(formData).some((value) => value.trim() === '')
 
-  if (hasEmptyField) {
-    setErrorType('empty')
-    setStatus('error')
-    return
+    if (hasEmptyField) {
+      setErrorType('empty')
+      setStatus('error')
+      return
+    }
+
+    // Email invalide (simple mais efficace)
+    const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)
+
+    if (!validEmail) {
+      setErrorType('email')
+      setStatus('error')
+      return
+    }
+
+    setStatus('sending')
+    setErrorType('')
+
+    try {
+      const response = await fetch('https://formspree.io/f/xnjjajqj', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      if (!response.ok) throw new Error()
+
+      setStatus('success')
+      setFormData({ name: '', email: '', message: '' })
+
+      setTimeout(() => setStatus(''), 3000)
+    } catch (e) {
+      console.log('Erreur :', e)
+      setErrorType('server')
+      setStatus('error')
+    }
   }
-
-  // Email invalide (simple mais efficace)
-  const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)
-
-  if (!validEmail) {
-    setErrorType('email')
-    setStatus('error')
-    return
-  }
-
-  setStatus('sending')
-  setErrorType('')
-
-  try {
-    const response = await fetch("https://formspree.io/f/xnjjajqj", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      },
-      body: JSON.stringify(formData)
-    })
-
-    if (!response.ok) throw new Error()
-
-    setStatus('success')
-    setFormData({ name: '', email: '', message: '' })
-
-    setTimeout(() => setStatus(''), 3000)
-
-  } catch (e) {
-    console.log("Erreur :", e)
-    setErrorType('server')
-    setStatus('error')
-  }
-}
 
   return (
     <section className="py-20 px-4 bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
@@ -80,7 +77,7 @@ const handleSubmit = async (e) => {
           {t.title}
         </h2>
         <div className="w-24 h-1 bg-blue-600 dark:bg-blue-400 mx-auto mb-12 rounded-full" />
-        
+
         <div className="bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-shadow duration-300">
           <div className="space-y-6">
             {/* Nom */}
@@ -168,12 +165,12 @@ const handleSubmit = async (e) => {
                 {t.success}
               </div>
             )}
-            
+
             {status === 'error' && (
               <div className="p-4 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 rounded-lg text-center font-medium animate-slideDown">
-                    {errorType === 'empty' && t.errorEmpty}
-                    {errorType === 'email' && t.errorEmail}
-                    {errorType === 'server' && t.errorServer}
+                {errorType === 'empty' && t.errorEmpty}
+                {errorType === 'email' && t.errorEmail}
+                {errorType === 'server' && t.errorServer}
               </div>
             )}
           </div>

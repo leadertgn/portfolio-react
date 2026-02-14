@@ -1,4 +1,4 @@
-import SkillsList from "./SkillsList"
+import SkillsList from './SkillsList'
 
 export default function SkillsCategoryCard({ category, skills }) {
   return (
@@ -6,7 +6,7 @@ export default function SkillsCategoryCard({ category, skills }) {
       <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 pb-2 border-b-2 border-blue-600 dark:border-blue-400">
         {category}
       </h3>
-      
+
       <SkillsList skills={skills} variant="badge" />
     </div>
   )

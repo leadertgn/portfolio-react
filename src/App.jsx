@@ -4,7 +4,7 @@ import { LanguageProvider } from './contexts/LanguageContext'
 
 import Skills from './sections/Skills.jsx'
 import Projects from './sections/Projects.jsx'
-import Hero from "./components/Hero.jsx"
+import Hero from './components/Hero.jsx'
 import About from './sections/About.jsx'
 import Contact from './sections/Contact.jsx'
 import Footer from './components/Footer.jsx'
@@ -26,27 +26,27 @@ function AppContent() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
       <Header scrollToSection={scrollToSection} refs={refs} />
-      
+
       <div ref={heroRef}>
         <Hero />
       </div>
-      
+
       <div ref={projectsRef}>
         <Projects />
       </div>
-      
+
       <div ref={skillsRef}>
         <Skills />
       </div>
-      
+
       <div ref={aboutRef}>
         <About />
       </div>
-      
+
       <div ref={contactRef}>
         <Contact />
       </div>
-      
+
       <Footer scrollToSection={scrollToSection} refs={refs} />
     </div>
   )

@@ -1,4 +1,4 @@
-import SocialLinksCard from "./SocialLinksCard"
+import SocialLinksCard from './SocialLinksCard'
 import { useLang } from '../contexts/LanguageContext'
 import { translations } from '../data/translations'
 
@@ -12,16 +12,22 @@ export default function Hero() {
         <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-4 animate-slideDown">
           Eméric R. S. TOGNON
         </h1>
-        
-        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-blue-600 dark:text-blue-400 mb-6 animate-slideDown" style={{animationDelay: '0.1s'}}>
+
+        <h2
+          className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-blue-600 dark:text-blue-400 mb-6 animate-slideDown"
+          style={{ animationDelay: '0.1s' }}
+        >
           {t.title}
         </h2>
-        
-        <p className="text-lg sm:text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto mb-8 animate-slideDown leading-relaxed" style={{animationDelay: '0.2s'}}>
+
+        <p
+          className="text-lg sm:text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto mb-8 animate-slideDown leading-relaxed"
+          style={{ animationDelay: '0.2s' }}
+        >
           {t.subtitle}
         </p>
-        
-        <div className="animate-slideDown" style={{animationDelay: '0.3s'}}>
+
+        <div className="animate-slideDown" style={{ animationDelay: '0.3s' }}>
           <SocialLinksCard />
         </div>
       </div>

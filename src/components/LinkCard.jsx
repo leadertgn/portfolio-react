@@ -1,6 +1,6 @@
 export default function LinkCard({ icon, url, name }) {
   const Icon = icon
-  
+
   return (
     <a
       href={url}

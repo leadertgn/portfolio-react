@@ -1,11 +1,11 @@
-import { socialLinks } from "../data/socialLinks";
-import { useLang } from "../contexts/LanguageContext";
-import { translations } from "../data/translations";
+import { socialLinks } from '../data/socialLinks'
+import { useLang } from '../contexts/LanguageContext'
+import { translations } from '../data/translations'
 
 export default function Footer({ scrollToSection, refs }) {
-  const currentYear = new Date().getFullYear();
-  const { lang } = useLang();
-  const t = translations[lang].footer;
+  const currentYear = new Date().getFullYear()
+  const { lang } = useLang()
+  const t = translations[lang].footer
 
   return (
     <footer className="bg-gray-900 dark:bg-black text-gray-300 py-10 px-4 border-t border-gray-800 transition-colors duration-300">
@@ -56,5 +56,5 @@ export default function Footer({ scrollToSection, refs }) {
         </div>
       </div>
     </footer>
-  );
+  )
 }

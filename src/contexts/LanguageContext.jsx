@@ -8,7 +8,7 @@ export const LanguageProvider = ({ children }) => {
     if (typeof window !== 'undefined') {
       const savedLang = localStorage.getItem('language')
       if (savedLang) return savedLang
-      
+
       const browserLang = navigator.language.split('-')[0]
       return ['fr', 'en'].includes(browserLang) ? browserLang : 'fr'
     }
@@ -16,7 +16,7 @@ export const LanguageProvider = ({ children }) => {
   })
 
   const toggleLang = () => {
-    setLang(prev => {
+    setLang((prev) => {
       const newLang = prev === 'fr' ? 'en' : 'fr'
       localStorage.setItem('language', newLang)
       return newLang
@@ -24,9 +24,7 @@ export const LanguageProvider = ({ children }) => {
   }
 
   return (
-    <LanguageContext.Provider value={{ lang, toggleLang }}>
-      {children}
-    </LanguageContext.Provider>
+    <LanguageContext.Provider value={{ lang, toggleLang }}>{children}</LanguageContext.Provider>
   )
 }
 

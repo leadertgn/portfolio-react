@@ -21,7 +21,6 @@ function Header({ scrollToSection, refs }) {
     <header className="fixed top-0 w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-md z-50 border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
       <nav className="max-w-6xl mx-auto px-4 sm:px-6 py-4">
         <div className="flex items-center justify-between">
-          
           {/* Logo = lien SEO */}
           <a
             href="#home"
@@ -60,10 +59,11 @@ function Header({ scrollToSection, refs }) {
               className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               aria-label="Toggle theme"
             >
-              {theme === 'light'
-                ? <Moon size={20} className="text-gray-700" />
-                : <Sun size={20} className="text-gray-300" />
-              }
+              {theme === 'light' ? (
+                <Moon size={20} className="text-gray-700" />
+              ) : (
+                <Sun size={20} className="text-gray-300" />
+              )}
             </button>
 
             {/* Language */}
@@ -82,10 +82,11 @@ function Header({ scrollToSection, refs }) {
               className="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               aria-label="Toggle menu"
             >
-              {isOpen
-                ? <X size={24} className="text-gray-700 dark:text-gray-300" />
-                : <Menu size={24} className="text-gray-700 dark:text-gray-300" />
-              }
+              {isOpen ? (
+                <X size={24} className="text-gray-700 dark:text-gray-300" />
+              ) : (
+                <Menu size={24} className="text-gray-700 dark:text-gray-300" />
+              )}
             </button>
           </div>
         </div>
