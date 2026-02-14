@@ -25,6 +25,10 @@ export const translations = {
       p2: "Mon parcours m'a permis de maîtriser les technologies web les plus récentes (React, Node.js, TypeScript) tout en développant une solide expertise en électronique et programmation de systèmes embarqués (Arduino, ESP32, IoT).",
       leadership:
         "Lead de la communauté Tech Communities Clubs dans mon université, où j'anime des ateliers techniques et favorise l'échange de connaissances entre étudiants passionnés de technologie.",
+      leadershipLink: {
+        text: 'Tech Communities Clubs',
+        url: 'https://tcc.hyver.org/m/tognon-emeric-6625',
+      },
       p3: "Actuellement en recherche active d'opportunités professionnelles (stage ou CDI), je suis prêt à contribuer à des projets innovants et à relever de nouveaux défis techniques.",
       available: '✅ Disponible pour nouvelles opportunités',
     },
@@ -70,6 +74,10 @@ export const translations = {
       p2: 'My journey has allowed me to master the latest web technologies (React, Node.js, TypeScript) while developing solid expertise in electronics and embedded systems programming (Arduino, ESP32, IoT).',
       leadership:
         'Lead of the Tech Communities Clubs in my university, where I facilitate technical workshops and foster knowledge exchange among students passionate about technology.',
+      leadershipLink: {
+        text: 'Tech Communities Clubs',
+        url: 'https://tcc.hyver.org/m/tognon-emeric-6625',
+      },
       p3: 'Currently actively seeking professional opportunities (internship or permanent position), I am ready to contribute to innovative projects and take on new technical challenges.',
       available: '✅ Available for new opportunities',
     },

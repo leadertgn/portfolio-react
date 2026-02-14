@@ -5,6 +5,7 @@ import {
   FaFacebook,
   FaWhatsapp,
   FaInstagram,
+  FaUsers,
 } from 'react-icons/fa'
 
 export const socialLinks = [
@@ -43,5 +44,11 @@ export const socialLinks = [
     name: 'Email',
     url: 'mailto:tognonemeric@gmail.com',
     icon: FaEnvelope,
+  },
+  {
+    id: 7,
+    name: 'TCC',
+    url: 'https://tcc.hyver.org/m/tognon-emeric-6625',
+    icon: FaUsers,
   },
 ]
