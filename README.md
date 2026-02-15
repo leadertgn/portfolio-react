@@ -129,7 +129,7 @@ npm run format
 
 ---
 
-## 👨‍💻 À Propos
+## À Propos
 
 Développeur Full Stack passionné avec une double compétence en développement web moderne et systèmes embarqués. Lead de la communauté [Tech Communities Clubs](https://tcc.hyver.org/m/tognon-emeric-6625) à l'université.
 
@@ -137,7 +137,7 @@ Développeur Full Stack passionné avec une double compétence en développement
 
 ---
 
-## 📞 Contact
+## Contact
 
 - Site web : [leadertgn.me](https://leadertgn.me/)
 - LinkedIn : [emeric-tognon](https://linkedin.com/in/emeric-tognon)
@@ -146,7 +146,7 @@ Développeur Full Stack passionné avec une double compétence en développement
 
 ---
 
-## 📄 Licence
+## Licence
 
 Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
 
