@@ -1,0 +1,40 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Modèle pour les projets
+model Project {
+  id          Int      @id @default(autoincrement())
+  title       Json     // Format: { fr: "...", en: "..." }
+  description Json     // Format: { fr: "...", en: "..." }
+  image       String
+  links       Json     // Format: { Website: "...", Github: "..." }
+  stack       Json     // Format: ["React", "Node.js"]
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// Modèle pour les catégories de compétences
+model SkillCategory {
+  id     Int     @id @default(autoincrement())
+  name   Json    // Format: { fr: "Frontend", en: "Frontend" }
+  order  Int     @default(0)
+  skills Skill[]
+}
+
+// Modèle pour les compétences individuelles
+model Skill {
+  id         Int           @id @default(autoincrement())
+  name       String
+  category   SkillCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId Int
+}

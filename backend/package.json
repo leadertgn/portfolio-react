@@ -1,0 +1,30 @@
+{
+  "name": "portfolio-backend",
+  "version": "1.0.0",
+  "description": "Backend for Emeric Tognon Portfolio Dashboard",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "prisma:generate": "prisma generate",
+    "prisma:studio": "prisma studio"
+  },
+  "keywords": [],
+  "author": "Emeric Tognon",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^6.4.1",
+    "cloudinary": "^2.9.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "google-auth-library": "^9.15.1",
+    "multer": "^2.1.1",
+    "multer-storage-cloudinary": "^2.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9",
+    "prisma": "^6.4.1"
+  }
+}
