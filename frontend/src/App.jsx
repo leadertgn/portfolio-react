@@ -5,11 +5,13 @@ import PortfolioLayout from './layouts/PortfolioLayout.jsx'
 import Login from './sections/Login.jsx'
 import AdminDashboard from './sections/AdminDashboard.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
+import { Toaster } from 'react-hot-toast'
 
 function App() {
   return (
     <ThemeProvider>
       <LanguageProvider>
+        <Toaster position="top-right" />
         <Routes>
           {/* Routes Publiques : Portfolio */}
           <Route path="/" element={<PortfolioLayout />} />

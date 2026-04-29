@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Plus, Trash2, Tag } from 'lucide-react';
 import { skillService } from '../../services/api';
+import toast from 'react-hot-toast';
 
 export default function SkillForm({ categories, onRefresh }) {
   const [newCategory, setNewCategory] = useState('');
@@ -13,7 +14,10 @@ export default function SkillForm({ categories, onRefresh }) {
       await skillService.createCategory({ name: { fr: newCategory, en: newCategory } });
       setNewCategory('');
       onRefresh();
-    } catch (e) { alert('Erreur'); }
+      toast.success('Catégorie ajoutée');
+    } catch (e) {
+      toast.error('Erreur lors de l\'ajout de la catégorie');
+    }
   };
 
   const handleAddSkill = async (categoryId) => {
@@ -23,20 +27,33 @@ export default function SkillForm({ categories, onRefresh }) {
       await skillService.createSkill({ name: skillName, categoryId });
       setNewSkills({ ...newSkills, [categoryId]: '' });
       onRefresh();
-    } catch (e) { alert('Erreur'); }
+      toast.success('Compétence ajoutée');
+    } catch (e) { 
+      toast.error('Erreur lors de l\'ajout de la compétence');
+    }
   };
 
   const handleDeleteSkill = async (id) => {
     if (confirm('Supprimer cette compétence ?')) {
-      await skillService.deleteSkill(id);
-      onRefresh();
+      try {
+        await skillService.deleteSkill(id);
+        onRefresh();
+        toast.success('Compétence supprimée');
+      } catch (e) {
+        toast.error('Erreur lors de la suppression');
+      }
     }
   };
 
   const handleDeleteCategory = async (id) => {
     if (confirm('Supprimer cette catégorie et toutes ses compétences ?')) {
-      await skillService.deleteCategory(id);
-      onRefresh();
+      try {
+        await skillService.deleteCategory(id);
+        onRefresh();
+        toast.success('Catégorie supprimée');
+      } catch (e) {
+        toast.error('Erreur lors de la suppression');
+      }
     }
   };
 

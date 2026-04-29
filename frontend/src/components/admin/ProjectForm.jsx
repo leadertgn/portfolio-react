@@ -34,7 +34,7 @@ export default function ProjectForm({ project, onSave, onCancel }) {
     
     // Si la stack est une chaine, on l'envoie en tableau
     const stackArray = typeof formData.stack === 'string' 
-      ? formData.stack.split(',').map(s => s.trim()) 
+      ? formData.stack.split(',').map(s => s.trim()).filter(s => s !== '') 
       : formData.stack;
     data.append('stack', JSON.stringify(stackArray));
     
@@ -64,7 +64,7 @@ export default function ProjectForm({ project, onSave, onCancel }) {
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Titres */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium mb-1 dark:text-gray-300">Titre (FR)</label>
             <input
@@ -110,7 +110,7 @@ export default function ProjectForm({ project, onSave, onCancel }) {
         </div>
 
         {/* Liens */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium mb-1 dark:text-gray-300">URL GitHub</label>
             <input

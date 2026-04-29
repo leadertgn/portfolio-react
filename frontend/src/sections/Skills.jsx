@@ -4,6 +4,7 @@ import { SkillSkeleton } from '../components/Skeletons'
 import { skillService } from '../services/api'
 import { useLang } from '../contexts/LanguageContext'
 import { translations } from '../data/translations'
+import { stackData as localSkills } from '../data/stacks'
 
 export default function Skills() {
   const { lang } = useLang()
@@ -17,7 +18,15 @@ export default function Skills() {
         const data = await skillService.getAll()
         setCategories(data)
       } catch (error) {
-        console.error('Erreur lors du chargement des compétences:', error)
+        console.error('Erreur lors du chargement des compétences, chargement des données locales:', error)
+        
+        // Formatage pour correspondre au format attendu par le frontend
+        const localFormatted = Object.entries(localSkills).map(([catName, skillsList], index) => ({
+          id: index,
+          name: { fr: catName, en: catName },
+          skills: skillsList.map((skill, sIndex) => ({ id: sIndex, name: skill.name }))
+        }))
+        setCategories(localFormatted)
       } finally {
         setLoading(false)
       }

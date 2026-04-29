@@ -29,10 +29,10 @@ export default function About() {
 
             <p className="leading-relaxed">{t.p2}</p>
 
-            {/* Nouveau : Rôle Lead Tech Communities */}
+            {/* Rôle Lead Tech Communities (Sans duplication) */}
             <div className="bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-600 dark:border-blue-400 p-4 rounded-r-lg">
               <p className="leading-relaxed font-medium text-blue-900 dark:text-blue-300">
-                {t.leadership.replace('Tech Communities Clubs', '')}
+                {t.leadership.split(t.leadershipLink.text)[0]}
                 <a
                   href={t.leadershipLink.url}
                   target="_blank"
@@ -41,9 +41,7 @@ export default function About() {
                 >
                   {t.leadershipLink.text}
                 </a>
-                {lang === 'fr'
-                  ? " dans mon université, où j'anime des ateliers techniques et favorise l'échange de connaissances entre étudiants passionnés de technologie."
-                  : ' in my university, where I facilitate technical workshops and foster knowledge exchange among students passionate about technology.'}
+                {t.leadership.split(t.leadershipLink.text)[1]}
               </p>
             </div>
 

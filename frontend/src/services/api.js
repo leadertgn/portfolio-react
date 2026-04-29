@@ -12,6 +12,17 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      // Token expiré ou invalide
+      localStorage.removeItem('adminToken');
+      window.location.href = '/login';
+    }
+    return Promise.reject(error);
+  }
+);
 export const projectService = {
   getAll: () => api.get('/api/projects').then(res => res.data),
   create: (formData) => api.post('/api/admin/projects', formData, {

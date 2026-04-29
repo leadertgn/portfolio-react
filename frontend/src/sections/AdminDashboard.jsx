@@ -3,11 +3,12 @@ import { useAuth } from '../contexts/AuthContext'
 import { useNavigate } from 'react-router-dom'
 import { 
   LogOut, LayoutDashboard, PlusCircle, Settings, User, 
-  Briefcase, Edit, Trash2, Globe, Github 
+  Briefcase, Edit, Trash2, Globe, Github, Menu, X 
 } from 'lucide-react'
 import { projectService, skillService } from '../services/api'
 import ProjectForm from '../components/admin/ProjectForm'
 import SkillForm from '../components/admin/SkillForm'
+import toast from 'react-hot-toast'
 
 export default function AdminDashboard() {
   const { logout } = useAuth()
@@ -18,6 +19,7 @@ export default function AdminDashboard() {
   const [isFormOpen, setIsFormOpen] = useState(false)
   const [editingProject, setEditingProject] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   useEffect(() => {
     if (activeTab === 'projects') {
@@ -53,20 +55,31 @@ export default function AdminDashboard() {
   }
 
   const handleSaveProject = async (formData) => {
-    if (editingProject) {
-      await projectService.update(editingProject.id, formData)
-    } else {
-      await projectService.create(formData)
+    try {
+      if (editingProject) {
+        await projectService.update(editingProject.id, formData)
+        toast.success('Projet mis à jour avec succès')
+      } else {
+        await projectService.create(formData)
+        toast.success('Projet créé avec succès')
+      }
+      setIsFormOpen(false)
+      setEditingProject(null)
+      fetchProjects()
+    } catch (error) {
+      toast.error('Erreur lors de la sauvegarde du projet')
     }
-    setIsFormOpen(false)
-    setEditingProject(null)
-    fetchProjects()
   }
 
   const handleDeleteProject = async (id) => {
     if (confirm('Voulez-vous vraiment supprimer ce projet ?')) {
-      await projectService.delete(id)
-      fetchProjects()
+      try {
+        await projectService.delete(id)
+        toast.success('Projet supprimé')
+        fetchProjects()
+      } catch (error) {
+        toast.error('Erreur lors de la suppression')
+      }
     }
   }
 
@@ -83,27 +96,30 @@ export default function AdminDashboard() {
         </div>
       )}
 
-      {/* Sidebar */}
-      <aside className="w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 hidden md:flex flex-col">
-        <div className="p-6">
+      {/* Sidebar Desktop & Mobile */}
+      <aside className={`${mobileMenuOpen ? 'fixed inset-0 z-40 flex' : 'hidden'} md:flex w-64 flex-col bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 transition-transform`}>
+        <div className="p-6 flex justify-between items-center">
           <h2 className="text-xl font-bold text-blue-600">Admin Panel</h2>
+          <button className="md:hidden text-gray-500" onClick={() => setMobileMenuOpen(false)}>
+            <X size={24} />
+          </button>
         </div>
         
         <nav className="flex-1 px-4 space-y-1">
           <button 
-            onClick={() => setActiveTab('overview')}
+            onClick={() => { setActiveTab('overview'); setMobileMenuOpen(false); }}
             className={`w-full flex items-center gap-3 p-3 rounded-lg transition-colors ${activeTab === 'overview' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 font-medium' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'}`}
           >
             <LayoutDashboard size={20} /> Aperçu
           </button>
           <button 
-            onClick={() => setActiveTab('projects')}
+            onClick={() => { setActiveTab('projects'); setMobileMenuOpen(false); }}
             className={`w-full flex items-center gap-3 p-3 rounded-lg transition-colors ${activeTab === 'projects' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 font-medium' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'}`}
           >
             <Briefcase size={20} /> Projets
           </button>
           <button 
-            onClick={() => setActiveTab('skills')}
+            onClick={() => { setActiveTab('skills'); setMobileMenuOpen(false); }}
             className={`w-full flex items-center gap-3 p-3 rounded-lg transition-colors ${activeTab === 'skills' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 font-medium' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'}`}
           >
             <Settings size={20} /> Compétences
@@ -118,11 +134,16 @@ export default function AdminDashboard() {
       </aside>
 
       {/* Main */}
-      <main className="flex-1 p-8 overflow-y-auto">
-        <header className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold dark:text-white">
-            {activeTab === 'overview' ? 'Aperçu' : activeTab === 'projects' ? 'Gestion des Projets' : 'Gestion des Compétences'}
-          </h1>
+      <main className="flex-1 p-4 md:p-8 overflow-y-auto">
+        <header className="flex justify-between items-center mb-8 gap-4 flex-wrap">
+          <div className="flex items-center gap-3">
+            <button className="md:hidden text-gray-500 dark:text-gray-300" onClick={() => setMobileMenuOpen(true)}>
+              <Menu size={28} />
+            </button>
+            <h1 className="text-2xl md:text-3xl font-bold dark:text-white">
+              {activeTab === 'overview' ? 'Aperçu' : activeTab === 'projects' ? 'Gestion des Projets' : 'Gestion des Compétences'}
+            </h1>
+          </div>
           {activeTab === 'projects' && (
             <button 
               onClick={() => setIsFormOpen(true)}

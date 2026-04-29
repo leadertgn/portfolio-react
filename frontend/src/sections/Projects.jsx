@@ -4,6 +4,7 @@ import { ProjectSkeleton } from '../components/Skeletons'
 import { projectService } from '../services/api'
 import { useLang } from '../contexts/LanguageContext'
 import { translations } from '../data/translations'
+import { projects as localProjects } from '../data/projects'
 
 export default function Projects() {
   const { lang } = useLang()
@@ -17,7 +18,12 @@ export default function Projects() {
         const data = await projectService.getAll()
         setProjectsList(data)
       } catch (error) {
-        console.error('Erreur lors du chargement des projets:', error)
+        console.error('Erreur lors du chargement des projets, chargement des données locales:', error)
+        // Formatage pour correspondre au format attendu (la data locale a déjà un format array d'objets pour stack)
+        setProjectsList(localProjects.map(p => ({
+          ...p,
+          stack: p.stack.map(s => s.name)
+        })))
       } finally {
         setLoading(false)
       }

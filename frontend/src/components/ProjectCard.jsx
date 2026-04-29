@@ -37,7 +37,7 @@ export default function ProjectCard({ image, title, description, links, stack })
         {/* Links */}
         <div className="flex gap-3 pt-2 border-t border-gray-200 dark:border-gray-700">
           {Object.entries(links)
-            .filter(([, url]) => url !== null)
+            .filter(([, url]) => url !== null && url !== '')
             .map(([key, url]) => (
               <a
                 key={key}
