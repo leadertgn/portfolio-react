@@ -83,5 +83,9 @@
     }
   ],
   "trailingSlash": false,
-  "cleanUrls": true
+  "cleanUrls": true,
+  "buildCommand": "npm run build",
+  "installCommand": "npm install --legacy-peer-deps",
+  "outputDirectory": "dist"
+
 }
