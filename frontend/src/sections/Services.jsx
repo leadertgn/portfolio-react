@@ -4,20 +4,29 @@ import { translations } from '../data/translations'
 import { Monitor, Code, Smartphone, Database, Server, PenTool, LayoutDashboard } from 'lucide-react'
 import axios from 'axios'
 
+import { ServiceSkeleton } from '../components/Skeletons'
+
 const ICONS = { Monitor, Code, Smartphone, Database, Server, PenTool, LayoutDashboard }
 
 export default function Services() {
   const { lang } = useLang()
   const t = translations[lang].services
   const [services, setServices] = useState([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     axios.get(`${import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000'}/api/services`)
-      .then(res => setServices(res.data))
-      .catch(console.error)
+      .then(res => {
+        setServices(res.data)
+        setLoading(false)
+      })
+      .catch(err => {
+        console.error(err)
+        setLoading(false)
+      })
   }, [])
 
-  if (services.length === 0) return null
+  if (!loading && services.length === 0) return null
 
   return (
     <section className="py-20 px-4 bg-gray-50 dark:bg-gray-800/50 transition-colors duration-300">
@@ -29,7 +38,10 @@ export default function Services() {
         <div className="w-24 h-1 bg-blue-600 dark:bg-blue-400 mx-auto mb-16 rounded-full" />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service) => {
+          {loading ? (
+            Array.from({ length: 3 }).map((_, i) => <ServiceSkeleton key={i} />)
+          ) : (
+            services.map((service) => {
             const Icon = ICONS[service.icon] || Monitor
             return (
               <div 
@@ -52,8 +64,9 @@ export default function Services() {
                 )}
               </div>
             )
-          })}
-        </div>
+          })
+        )}
+      </div>
       </div>
     </section>
   )

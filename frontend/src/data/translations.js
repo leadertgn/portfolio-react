@@ -12,6 +12,8 @@ export const translations = {
       title: 'Développeur Web Full Stack & Systèmes Embarqués',
       subtitle:
         "Passionné par la création de solutions web innovantes et l'intégration de systèmes embarqués. Je transforme des idées en applications performantes et intuitives.",
+      ctaServices: 'Voir mes services',
+      ctaContact: 'Démarrer un projet',
     },
     projects: {
       title: 'Projets Récents',
@@ -74,6 +76,8 @@ export const translations = {
       title: 'Full Stack Web Developer & Embedded Systems',
       subtitle:
         'Passionate about creating innovative web solutions and embedded system integration. I transform ideas into high-performance, intuitive applications.',
+      ctaServices: 'My Services',
+      ctaContact: 'Start a project',
     },
     projects: {
       title: 'Recent Projects',

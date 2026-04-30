@@ -26,11 +26,11 @@ export default function AdminDashboard() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   useEffect(() => {
-    if (activeTab === 'projects') fetchProjects()
-    else if (activeTab === 'skills') fetchSkills()
-    else if (activeTab === 'services') fetchServices()
-    else if (activeTab === 'testimonials') fetchTestimonials()
-  }, [activeTab])
+    fetchProjects()
+    fetchSkills()
+    fetchServices()
+    fetchTestimonials()
+  }, [])
 
   const fetchProjects = async () => {
     setLoading(true)
@@ -191,9 +191,55 @@ export default function AdminDashboard() {
 
         {/* Content Tabs */}
         {activeTab === 'overview' && (
-          <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border dark:border-gray-700">
-            <h2 className="text-xl font-bold mb-4 dark:text-white">Bienvenue dans l'espace admin</h2>
-            <p className="text-gray-600 dark:text-gray-400">Utilisez la barre latérale pour gérer vos projets et compétences.</p>
+          <div className="space-y-6 animate-fade-in">
+            <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border dark:border-gray-700">
+              <h2 className="text-xl font-bold mb-2 dark:text-white">Bienvenue dans l'espace admin</h2>
+              <p className="text-gray-600 dark:text-gray-400">Voici un aperçu global de votre portfolio.</p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm border dark:border-gray-700 flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400">
+                  <Briefcase size={24} />
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">Projets</p>
+                  <p className="text-2xl font-bold dark:text-white">{projects.length}</p>
+                </div>
+              </div>
+
+              <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm border dark:border-gray-700 flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-600 dark:text-green-400">
+                  <Settings size={24} />
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">Catégories & Compétences</p>
+                  <p className="text-2xl font-bold dark:text-white">
+                    {categories.length} <span className="text-sm font-normal text-gray-400">({categories.reduce((acc, cat) => acc + (cat.skills ? cat.skills.length : 0), 0)} comp.)</span>
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm border dark:border-gray-700 flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-600 dark:text-purple-400">
+                  <Globe size={24} />
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">Services</p>
+                  <p className="text-2xl font-bold dark:text-white">{services.length}</p>
+                </div>
+              </div>
+
+              <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm border dark:border-gray-700 flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-600 dark:text-orange-400">
+                  <User size={24} />
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">Témoignages</p>
+                  <p className="text-2xl font-bold dark:text-white">{testimonials.length}</p>
+                </div>
+              </div>
+            </div>
           </div>
         )}
 

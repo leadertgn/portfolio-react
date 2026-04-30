@@ -54,7 +54,8 @@ export default function Projects() {
                 title={project.title}
                 description={project.description}
                 links={project.links}
-                stack={project.stack.map(s => ({ name: s }))} // Formatage pour LinkCard
+                stack={project.stack.map(s => ({ name: s }))}
+                caseStudy={project.caseStudy}
               />
             ))
           )}

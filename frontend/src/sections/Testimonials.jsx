@@ -4,18 +4,27 @@ import { translations } from '../data/translations'
 import { Quote, User } from 'lucide-react'
 import axios from 'axios'
 
+import { TestimonialSkeleton } from '../components/Skeletons'
+
 export default function Testimonials() {
   const { lang } = useLang()
   const t = translations[lang].testimonials
   const [testimonials, setTestimonials] = useState([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     axios.get(`${import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000'}/api/testimonials`)
-      .then(res => setTestimonials(res.data))
-      .catch(console.error)
+      .then(res => {
+        setTestimonials(res.data)
+        setLoading(false)
+      })
+      .catch(err => {
+        console.error(err)
+        setLoading(false)
+      })
   }, [])
 
-  if (testimonials.length === 0) return null
+  if (!loading && testimonials.length === 0) return null
 
   return (
     <section className="py-20 px-4 bg-white dark:bg-gray-900 transition-colors duration-300">
@@ -26,7 +35,10 @@ export default function Testimonials() {
         <div className="w-24 h-1 bg-blue-600 dark:bg-blue-400 mx-auto mb-16 rounded-full" />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {testimonials.map((testi) => (
+          {loading ? (
+            Array.from({ length: 3 }).map((_, i) => <TestimonialSkeleton key={i} />)
+          ) : (
+            testimonials.map((testi) => (
             <div 
               key={testi.id} 
               className="bg-blue-50/50 dark:bg-gray-800/50 p-8 rounded-2xl relative shadow-sm border border-blue-100 dark:border-gray-800"
@@ -53,8 +65,9 @@ export default function Testimonials() {
                 </div>
               </div>
             </div>
-          ))}
-        </div>
+          ))
+        )}
+      </div>
       </div>
     </section>
   )

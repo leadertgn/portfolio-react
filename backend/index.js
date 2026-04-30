@@ -11,8 +11,41 @@ const app = express();
 const prisma = new PrismaClient();
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
-app.use(cors());
+// Configuration CORS sécurisée
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:3000',
+  'https://leadertgn.me', // Ton domaine
+  process.env.FRONTEND_URL
+].filter(Boolean);
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('CORS non autorisé'));
+    }
+  },
+  credentials: true
+}));
+
 app.use(express.json());
+
+// Mécanisme pour empêcher Render de s'endormir (Ping toutes les 14 min)
+const PORT = process.env.PORT || 5000;
+const SELF_URL = process.env.BACKEND_URL;
+
+if (SELF_URL) {
+  setInterval(async () => {
+    try {
+      await fetch(`${SELF_URL}/api/projects`);
+      console.log('Self-ping success: Staying awake!');
+    } catch (e) {
+      console.error('Self-ping error:', e.message);
+    }
+  }, 14 * 60 * 1000);
+}
 
 // Logger de requêtes avancé
 app.use((req, res, next) => {
@@ -132,7 +165,7 @@ app.post('/api/admin/projects', authMiddleware, upload.single('image'), async (r
         links: parsedLinks,
         stack: parsedStack,
         caseStudy: parsedCaseStudy,
-        image: req.file ? req.file.path : '',
+        image: req.file ? (req.file.secure_url || req.file.url || req.file.path) : '',
         order: parseInt(order) || 0,
       },
     });
@@ -170,7 +203,7 @@ app.put('/api/admin/projects/:id', authMiddleware, upload.single('image'), async
     };
 
     if (req.file) {
-      updateData.image = req.file.path;
+      updateData.image = req.file.secure_url || req.file.url || req.file.path;
     }
 
     const project = await prisma.project.update({
@@ -253,7 +286,7 @@ app.post('/api/admin/testimonials', authMiddleware, upload.single('image'), asyn
         name,
         role: parsedRole,
         content: parsedContent,
-        image: req.file ? req.file.path : '',
+        image: req.file ? (req.file.secure_url || req.file.url || req.file.path) : '',
         order: parseInt(order) || 0
       }
     });
@@ -276,7 +309,7 @@ app.put('/api/admin/testimonials/:id', authMiddleware, upload.single('image'), a
       content: parsedContent,
       order: parseInt(order) || 0
     };
-    if (req.file) updateData.image = req.file.path;
+    if (req.file) updateData.image = req.file.secure_url || req.file.url || req.file.path;
 
     const testimonial = await prisma.testimonial.update({
       where: { id: parseInt(req.params.id) },
@@ -331,7 +364,6 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Une erreur interne est survenue', details: err.message });
 });
 
-const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Serveur démarré sur le port ${PORT}`);
 });

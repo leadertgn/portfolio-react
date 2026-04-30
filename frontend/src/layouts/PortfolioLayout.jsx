@@ -27,9 +27,9 @@ export default function PortfolioLayout() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
       <Header scrollToSection={scrollToSection} refs={refs} />
-
+      
       <div ref={heroRef}>
-        <Hero />
+        <Hero scrollToSection={scrollToSection} refs={refs} />
       </div>
 
       <div ref={projectsRef}>
