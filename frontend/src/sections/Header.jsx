@@ -13,6 +13,7 @@ function Header({ scrollToSection, refs }) {
   const menuItems = [
     { label: t.projects, ref: refs.projectsRef, id: 'projects' },
     { label: t.skills, ref: refs.skillsRef, id: 'skills' },
+    { label: t.services, ref: refs.servicesRef, id: 'services' },
     { label: t.about, ref: refs.aboutRef, id: 'about' },
     { label: t.contact, ref: refs.contactRef, id: 'contact' },
   ]

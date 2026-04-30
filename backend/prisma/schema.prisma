@@ -18,6 +18,7 @@ model Project {
   image       String
   links       Json     // Format: { Website: "...", Github: "..." }
   stack       Json     // Format: ["React", "Node.js"]
+  caseStudy   Json?    // NOUVEAU: Format: { fr: { problem: "", solution: "", results: "" }, en: { problem: "", solution: "", results: "" } }
   order       Int      @default(0)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -37,4 +38,25 @@ model Skill {
   name       String
   category   SkillCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   categoryId Int
+}
+
+// Modèle pour les témoignages (Preuve Sociale)
+model Testimonial {
+  id        Int      @id @default(autoincrement())
+  name      String
+  role      Json?    // Format: { fr: "CTO, TechCorp", en: "CTO, TechCorp" }
+  content   Json     // Format: { fr: "Message...", en: "Message..." }
+  image     String?  // URL de l'image (avatar)
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+// Modèle pour les Services (Monétisation)
+model Service {
+  id          Int      @id @default(autoincrement())
+  title       Json     // Format: { fr: "Titre", en: "Title" }
+  description Json     // Format: { fr: "Desc", en: "Desc" }
+  icon        String   // Nom de l'icône Lucide (ex: 'Monitor', 'Database')
+  price       Json?    // Format: { fr: "À partir de 500€", en: "Starting from $500" }
+  order       Int      @default(0)
 }

@@ -87,20 +87,39 @@ app.get('/api/skills', async (req, res) => {
   }
 });
 
+app.get('/api/testimonials', async (req, res) => {
+  try {
+    const testimonials = await prisma.testimonial.findMany({ orderBy: { order: 'asc' } });
+    res.json(testimonials);
+  } catch (error) {
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
+});
+
+app.get('/api/services', async (req, res) => {
+  try {
+    const services = await prisma.service.findMany({ orderBy: { order: 'asc' } });
+    res.json(services);
+  } catch (error) {
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
+});
+
 // --- ROUTES PROTÉGÉES (ADMIN) ---
 
 // --- PROJETS ---
 app.post('/api/admin/projects', authMiddleware, upload.single('image'), async (req, res) => {
   try {
-    const { title, description, links, stack, order } = req.body;
+    const { title, description, links, stack, caseStudy, order } = req.body;
     
     // Parse JSON en toute sécurité
-    let parsedTitle, parsedDescription, parsedLinks, parsedStack;
+    let parsedTitle, parsedDescription, parsedLinks, parsedStack, parsedCaseStudy;
     try {
       parsedTitle = JSON.parse(title);
       parsedDescription = JSON.parse(description);
       parsedLinks = JSON.parse(links);
       parsedStack = JSON.parse(stack);
+      parsedCaseStudy = caseStudy ? JSON.parse(caseStudy) : null;
     } catch (parseError) {
       console.error('Erreur de parsing JSON (Création Projet):', parseError);
       return res.status(400).json({ error: 'Données mal formées (JSON invalide)' });
@@ -112,6 +131,7 @@ app.post('/api/admin/projects', authMiddleware, upload.single('image'), async (r
         description: parsedDescription,
         links: parsedLinks,
         stack: parsedStack,
+        caseStudy: parsedCaseStudy,
         image: req.file ? req.file.path : '',
         order: parseInt(order) || 0,
       },
@@ -126,14 +146,15 @@ app.post('/api/admin/projects', authMiddleware, upload.single('image'), async (r
 app.put('/api/admin/projects/:id', authMiddleware, upload.single('image'), async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, description, links, stack, order } = req.body;
+    const { title, description, links, stack, caseStudy, order } = req.body;
     
-    let parsedTitle, parsedDescription, parsedLinks, parsedStack;
+    let parsedTitle, parsedDescription, parsedLinks, parsedStack, parsedCaseStudy;
     try {
       parsedTitle = JSON.parse(title);
       parsedDescription = JSON.parse(description);
       parsedLinks = JSON.parse(links);
       parsedStack = JSON.parse(stack);
+      parsedCaseStudy = caseStudy ? JSON.parse(caseStudy) : null;
     } catch (parseError) {
       console.error('Erreur de parsing JSON (Update Projet):', parseError);
       return res.status(400).json({ error: 'Données mal formées (JSON invalide)' });
@@ -144,6 +165,7 @@ app.put('/api/admin/projects/:id', authMiddleware, upload.single('image'), async
       description: parsedDescription,
       links: parsedLinks,
       stack: parsedStack,
+      caseStudy: parsedCaseStudy,
       order: parseInt(order) || 0,
     };
 
@@ -214,6 +236,89 @@ app.delete('/api/admin/skills/categories/:id', authMiddleware, async (req, res) 
   } catch (error) {
     res.status(500).json({ error: 'Erreur suppression catégorie' });
   }
+});
+
+// --- TESTIMONIALS ---
+app.post('/api/admin/testimonials', authMiddleware, upload.single('image'), async (req, res) => {
+  try {
+    const { name, role, content, order } = req.body;
+    let parsedRole, parsedContent;
+    try {
+      parsedRole = role ? JSON.parse(role) : null;
+      parsedContent = JSON.parse(content);
+    } catch (e) { return res.status(400).json({ error: 'JSON invalide' }); }
+
+    const testimonial = await prisma.testimonial.create({
+      data: {
+        name,
+        role: parsedRole,
+        content: parsedContent,
+        image: req.file ? req.file.path : '',
+        order: parseInt(order) || 0
+      }
+    });
+    res.json(testimonial);
+  } catch (error) { res.status(500).json({ error: 'Erreur création témoignage' }); }
+});
+
+app.put('/api/admin/testimonials/:id', authMiddleware, upload.single('image'), async (req, res) => {
+  try {
+    const { name, role, content, order } = req.body;
+    let parsedRole, parsedContent;
+    try {
+      parsedRole = role ? JSON.parse(role) : null;
+      parsedContent = JSON.parse(content);
+    } catch (e) { return res.status(400).json({ error: 'JSON invalide' }); }
+
+    const updateData = {
+      name,
+      role: parsedRole,
+      content: parsedContent,
+      order: parseInt(order) || 0
+    };
+    if (req.file) updateData.image = req.file.path;
+
+    const testimonial = await prisma.testimonial.update({
+      where: { id: parseInt(req.params.id) },
+      data: updateData
+    });
+    res.json(testimonial);
+  } catch (error) { res.status(500).json({ error: 'Erreur update témoignage' }); }
+});
+
+app.delete('/api/admin/testimonials/:id', authMiddleware, async (req, res) => {
+  try {
+    await prisma.testimonial.delete({ where: { id: parseInt(req.params.id) } });
+    res.json({ message: 'Supprimé' });
+  } catch (error) { res.status(500).json({ error: 'Erreur suppression' }); }
+});
+
+// --- SERVICES ---
+app.post('/api/admin/services', authMiddleware, async (req, res) => {
+  try {
+    if (!req.body || !req.body.title || !req.body.description || !req.body.icon) {
+      return res.status(400).json({ error: 'Données incomplètes' });
+    }
+    const service = await prisma.service.create({ data: req.body });
+    res.json(service);
+  } catch (error) { res.status(500).json({ error: 'Erreur création service' }); }
+});
+
+app.put('/api/admin/services/:id', authMiddleware, async (req, res) => {
+  try {
+    const service = await prisma.service.update({
+      where: { id: parseInt(req.params.id) },
+      data: req.body
+    });
+    res.json(service);
+  } catch (error) { res.status(500).json({ error: 'Erreur update service' }); }
+});
+
+app.delete('/api/admin/services/:id', authMiddleware, async (req, res) => {
+  try {
+    await prisma.service.delete({ where: { id: parseInt(req.params.id) } });
+    res.json({ message: 'Supprimé' });
+  } catch (error) { res.status(500).json({ error: 'Erreur suppression' }); }
 });
 
 app.get('/api/admin/me', authMiddleware, (req, res) => {

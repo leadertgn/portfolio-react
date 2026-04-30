@@ -3,6 +3,8 @@ export const translations = {
     nav: {
       projects: 'Projets',
       skills: 'Compétences',
+      services: 'Services',
+      testimonials: 'Témoignages',
       about: 'À propos',
       contact: 'Contact',
     },
@@ -15,9 +17,20 @@ export const translations = {
       title: 'Projets Récents',
       viewSite: 'Voir le site',
       viewCode: 'Voir le code',
+      caseStudy: "Voir l'étude de cas",
+      problem: 'Le Problème',
+      solution: 'La Solution',
+      results: 'Les Résultats',
     },
     skills: {
       title: 'Compétences Techniques',
+    },
+    services: {
+      title: 'Mes Services',
+      subtitle: 'Comment je peux vous aider à atteindre vos objectifs',
+    },
+    testimonials: {
+      title: 'Ce qu\'ils disent de moi',
     },
     about: {
       title: 'À Propos',
@@ -52,6 +65,8 @@ export const translations = {
     nav: {
       projects: 'Projects',
       skills: 'Skills',
+      services: 'Services',
+      testimonials: 'Testimonials',
       about: 'About',
       contact: 'Contact',
     },
@@ -64,9 +79,20 @@ export const translations = {
       title: 'Recent Projects',
       viewSite: 'View site',
       viewCode: 'View code',
+      caseStudy: 'View case study',
+      problem: 'The Problem',
+      solution: 'The Solution',
+      results: 'The Results',
     },
     skills: {
       title: 'Technical Skills',
+    },
+    services: {
+      title: 'My Services',
+      subtitle: 'How I can help you achieve your goals',
+    },
+    testimonials: {
+      title: 'What people say',
     },
     about: {
       title: 'About Me',

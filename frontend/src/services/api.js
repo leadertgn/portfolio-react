@@ -42,4 +42,22 @@ export const skillService = {
   deleteCategory: (id) => api.delete(`/api/admin/skills/categories/${id}`).then(res => res.data),
 };
 
+export const testimonialService = {
+  getAll: () => api.get('/api/testimonials').then(res => res.data),
+  create: (formData) => api.post('/api/admin/testimonials', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' }
+  }).then(res => res.data),
+  update: (id, formData) => api.put(`/api/admin/testimonials/${id}`, formData, {
+    headers: { 'Content-Type': 'multipart/form-data' }
+  }).then(res => res.data),
+  delete: (id) => api.delete(`/api/admin/testimonials/${id}`).then(res => res.data),
+};
+
+export const serviceService = {
+  getAll: () => api.get('/api/services').then(res => res.data),
+  create: (data) => api.post('/api/admin/services', data).then(res => res.data),
+  update: (id, data) => api.put(`/api/admin/services/${id}`, data).then(res => res.data),
+  delete: (id) => api.delete(`/api/admin/services/${id}`).then(res => res.data),
+};
+
 export default api;

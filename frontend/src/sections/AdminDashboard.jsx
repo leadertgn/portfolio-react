@@ -8,6 +8,8 @@ import {
 import { projectService, skillService } from '../services/api'
 import ProjectForm from '../components/admin/ProjectForm'
 import SkillForm from '../components/admin/SkillForm'
+import ServiceForm from '../components/admin/ServiceForm'
+import TestimonialForm from '../components/admin/TestimonialForm'
 import toast from 'react-hot-toast'
 
 export default function AdminDashboard() {
@@ -16,17 +18,18 @@ export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState('overview')
   const [projects, setProjects] = useState([])
   const [categories, setCategories] = useState([])
+  const [services, setServices] = useState([])
+  const [testimonials, setTestimonials] = useState([])
   const [isFormOpen, setIsFormOpen] = useState(false)
   const [editingProject, setEditingProject] = useState(null)
   const [loading, setLoading] = useState(true)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   useEffect(() => {
-    if (activeTab === 'projects') {
-      fetchProjects()
-    } else if (activeTab === 'skills') {
-      fetchSkills()
-    }
+    if (activeTab === 'projects') fetchProjects()
+    else if (activeTab === 'skills') fetchSkills()
+    else if (activeTab === 'services') fetchServices()
+    else if (activeTab === 'testimonials') fetchTestimonials()
   }, [activeTab])
 
   const fetchProjects = async () => {
@@ -44,9 +47,26 @@ export default function AdminDashboard() {
     try {
       const data = await skillService.getAll()
       setCategories(data)
-    } finally {
-      setLoading(false)
-    }
+    } finally { setLoading(false) }
+  }
+
+  const fetchServices = async () => {
+    setLoading(true)
+    try {
+      // Pour éviter les erreurs si la route n'est pas encore prête
+      const { serviceService } = await import('../services/api')
+      const data = await serviceService.getAll()
+      setServices(data)
+    } catch(e) { console.log(e) } finally { setLoading(false) }
+  }
+
+  const fetchTestimonials = async () => {
+    setLoading(true)
+    try {
+      const { testimonialService } = await import('../services/api')
+      const data = await testimonialService.getAll()
+      setTestimonials(data)
+    } catch(e) { console.log(e) } finally { setLoading(false) }
   }
 
   const handleLogout = () => {
@@ -124,6 +144,18 @@ export default function AdminDashboard() {
           >
             <Settings size={20} /> Compétences
           </button>
+          <button 
+            onClick={() => { setActiveTab('services'); setMobileMenuOpen(false); }}
+            className={`w-full flex items-center gap-3 p-3 rounded-lg transition-colors ${activeTab === 'services' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 font-medium' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'}`}
+          >
+            <Settings size={20} /> Services
+          </button>
+          <button 
+            onClick={() => { setActiveTab('testimonials'); setMobileMenuOpen(false); }}
+            className={`w-full flex items-center gap-3 p-3 rounded-lg transition-colors ${activeTab === 'testimonials' ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 font-medium' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'}`}
+          >
+            <User size={20} /> Témoignages
+          </button>
         </nav>
 
         <div className="p-4 border-t dark:border-gray-700">
@@ -141,7 +173,10 @@ export default function AdminDashboard() {
               <Menu size={28} />
             </button>
             <h1 className="text-2xl md:text-3xl font-bold dark:text-white">
-              {activeTab === 'overview' ? 'Aperçu' : activeTab === 'projects' ? 'Gestion des Projets' : 'Gestion des Compétences'}
+              {activeTab === 'overview' ? 'Aperçu' : 
+               activeTab === 'projects' ? 'Gestion des Projets' : 
+               activeTab === 'skills' ? 'Gestion des Compétences' : 
+               activeTab === 'services' ? 'Gestion des Services' : 'Gestion des Témoignages'}
             </h1>
           </div>
           {activeTab === 'projects' && (
@@ -182,6 +217,14 @@ export default function AdminDashboard() {
 
         {activeTab === 'skills' && (
           <SkillForm categories={categories} onRefresh={fetchSkills} />
+        )}
+
+        {activeTab === 'services' && (
+          <ServiceForm services={services} onRefresh={fetchServices} />
+        )}
+
+        {activeTab === 'testimonials' && (
+          <TestimonialForm testimonials={testimonials} onRefresh={fetchTestimonials} />
         )}
       </main>
     </div>
