@@ -24,7 +24,7 @@ async function main() {
         en: "Full Stack platform for academic memoir management."
       },
       image: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&q=80&w=1000",
-      links: { github: "#", live: "#" },
+      links: { github: "#", live: "https://memo-hub-murex.vercel.app" },
       stack: ["FastAPI", "PostgreSQL", "React", "Tailwind CSS"],
       caseStudy: {
         fr: {
@@ -43,22 +43,22 @@ async function main() {
     {
       title: { fr: "Cetelec Label Generator", en: "Cetelec Label Generator" },
       description: { 
-        fr: "Automatisation industrielle d'étiquettes électriques haute précision.",
-        en: "Industrial automation of high-precision electrical labels."
+        fr: "Automatisation industrielle d'étiquettes électriques haute précision. ⚠️ Application optimisée exclusivement pour une utilisation sur PC.",
+        en: "Industrial automation of high-precision electrical labels. ⚠️ Application optimized exclusively for PC use."
       },
       image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=1000",
-      links: { github: "#", live: "#" },
+      links: { github: "#", live: "https://cetelec-label-generator.onrender.com" },
       stack: ["Node.js", "Prisma", "React", "CSS Print"],
       caseStudy: {
         fr: {
           problem: "Les techniciens perdaient des heures à concevoir manuellement des étiquettes, avec des erreurs fréquentes de dimensions lors de l'impression sur format A4.",
-          solution: "Utilisation des unités millimétriques en CSS et des @media print pour garantir une fidélité d'impression absolue (1:1). Interface de gestion par lots pour uniformiser les styles.",
-          results: "Réduction du temps de conception de 70% et élimination totale des rebuts d'impression dus aux erreurs de format."
+          solution: "Utilisation des unités millimétriques en CSS et des @media print pour garantir une fidélité d'impression absolue (1:1). Interface de gestion par lots pour uniformiser les styles. ⚠️ Note technique : L'application est exclusivement compatible PC en raison des contraintes d'impression précise et de gestion des formats d'étiquettes.",
+          results: "Réduction du temps de conception de 70% et élimination totale des rebuts d'impression dus aux erreurs de format. Interface optimisée pour les écrans PC (souris/clavier)."
         },
         en: {
           problem: "Technicians lost hours manually designing labels, with frequent dimensional errors when printing on A4 format.",
-          solution: "Use of millimeter units in CSS and @media print to guarantee absolute print fidelity (1:1). Batch management interface to standardize styles.",
-          results: "70% reduction in design time and total elimination of print waste due to format errors."
+          solution: "Use of millimeter units in CSS and @media print to guarantee absolute print fidelity (1:1). Batch management interface to standardize styles. ⚠️ Technical note: The application is exclusively PC-compatible due to precise printing constraints and label format management.",
+          results: "70% reduction in design time and total elimination of print waste due to format errors. Interface optimized for PC screens (mouse/keyboard)."
         }
       },
       order: 2
@@ -70,7 +70,7 @@ async function main() {
         en: "Intelligent and automated irrigation system using IoT."
       },
       image: "https://images.unsplash.com/photo-1585314062340-f1a5a7c9328d?auto=format&fit=crop&q=80&w=1000",
-      links: { github: "#", live: "#" },
+      links: { github: "#", live: "https://smart-irrigation-system-insti.netlify.app" },
       stack: ["Arduino", "ESP32", "Node.js", "React"],
       caseStudy: {
         fr: {
@@ -93,7 +93,7 @@ async function main() {
         en: "Intuitive real-time weather forecast interface."
       },
       image: "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?auto=format&fit=crop&q=80&w=1000",
-      links: { github: "#", live: "#" },
+      links: { github: "#", live: "https://leadertgn.github.io/application-meteo" },
       stack: ["React", "API OpenWeather", "Tailwind CSS"],
       caseStudy: {
         fr: {
@@ -116,7 +116,7 @@ async function main() {
         en: "Dynamic Full Stack application for professional identity management."
       },
       image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&q=80&w=1000",
-      links: { github: "#", live: "#" },
+      links: { github:"#", live: "https://leadertgn.me" },
       stack: ["React 19", "Node.js", "Prisma", "Tailwind CSS v4"],
       caseStudy: {
         fr: {
@@ -166,6 +166,7 @@ async function main() {
     });
   }
   console.log('✅ Compétences et catégories migrées avec succès.');
+  
   // 4. Migration des Services
   console.log('Migration des services...');
   const services = [
