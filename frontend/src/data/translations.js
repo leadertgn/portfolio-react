@@ -7,6 +7,7 @@ export const translations = {
       testimonials: 'Témoignages',
       about: 'À propos',
       contact: 'Contact',
+      resume: 'CV',
     },
     hero: {
       title: 'Développeur Web Full Stack & Systèmes Embarqués',
@@ -17,15 +18,27 @@ export const translations = {
     },
     projects: {
       title: 'Projets Récents',
+      subtitle: 'Une sélection de mes travaux les plus significatifs en web et IoT.',
       viewSite: 'Voir le site',
       viewCode: 'Voir le code',
       caseStudy: "Voir l'étude de cas",
       problem: 'Le Problème',
       solution: 'La Solution',
       results: 'Les Résultats',
+      clickToView: 'Cliquer pour consulter',
+    },
+    resume: {
+      title: 'Mon Curriculum Vitae',
+      subtitle: 'Retrouvez mon parcours académique et professionnel complet en un clic.',
+      role: 'Développeur Full Stack & IoT',
+      cvDescription: 'Document PDF contenant mes expériences, formations et projets détaillés.',
+      preview: 'Aperçu',
+      download: 'Télécharger (PDF)',
+      format: 'Format PDF — Mis à jour récemment',
     },
     skills: {
       title: 'Compétences Techniques',
+      subtitle: 'Les outils et technologies que je maîtrise pour donner vie à vos idées.',
     },
     services: {
       title: 'Mes Services',
@@ -33,9 +46,11 @@ export const translations = {
     },
     testimonials: {
       title: 'Ce qu\'ils disent de moi',
+      subtitle: 'Les retours de ceux avec qui j\'ai eu le plaisir de collaborer.',
     },
     about: {
       title: 'À Propos',
+      subtitle: 'Découvrez mon parcours et ma passion pour la technologie.',
       p1: "Développeur Full Stack passionné avec une double compétence unique en développement web moderne et systèmes embarqués. Je combine expertise technique et créativité pour concevoir des solutions complètes, de l'interface utilisateur jusqu'à l'intégration matérielle.",
       p2: "Mon parcours m'a permis de maîtriser les technologies web les plus récentes (React, Node.js, TypeScript) tout en développant une solide expertise en électronique et programmation de systèmes embarqués (Arduino, ESP32, IoT).",
       leadership:
@@ -49,6 +64,7 @@ export const translations = {
     },
     contact: {
       title: 'Contactez-moi',
+      subtitle: 'Une idée ? Un projet ? N\'hésitez pas à m\'écrire.',
       name: 'Nom',
       email: 'Email',
       message: 'Message',
@@ -61,6 +77,9 @@ export const translations = {
     },
     footer: {
       rights: 'Tous droits réservés',
+      description: 'Développeur passionné par le Web et l\'IoT, créant des solutions innovantes pour demain.',
+      quickLinks: 'Liens Rapides',
+      social: 'Réseaux Sociaux',
     },
   },
   en: {
@@ -71,6 +90,7 @@ export const translations = {
       testimonials: 'Testimonials',
       about: 'About',
       contact: 'Contact',
+      resume: 'CV',
     },
     hero: {
       title: 'Full Stack Web Developer & Embedded Systems',
@@ -81,15 +101,27 @@ export const translations = {
     },
     projects: {
       title: 'Recent Projects',
+      subtitle: 'A selection of my most significant works in web and IoT.',
       viewSite: 'View site',
       viewCode: 'View code',
       caseStudy: 'View case study',
       problem: 'The Problem',
       solution: 'The Solution',
       results: 'The Results',
+      clickToView: 'Click to view',
+    },
+    resume: {
+      title: 'My Resume',
+      subtitle: 'Find my complete academic and professional background in one click.',
+      role: 'Full Stack & IoT Developer',
+      cvDescription: 'PDF document containing my detailed experiences, training and projects.',
+      preview: 'Preview',
+      download: 'Download (PDF)',
+      format: 'PDF Format — Recently updated',
     },
     skills: {
       title: 'Technical Skills',
+      subtitle: 'The tools and technologies I master to bring your ideas to life.',
     },
     services: {
       title: 'My Services',
@@ -97,9 +129,11 @@ export const translations = {
     },
     testimonials: {
       title: 'What people say',
+      subtitle: 'Feedback from those I have had the pleasure of collaborating with.',
     },
     about: {
       title: 'About Me',
+      subtitle: 'Discover my background and my passion for technology.',
       p1: 'Passionate Full Stack Developer with a unique dual expertise in modern web development and embedded systems. I combine technical expertise and creativity to design complete solutions, from user interface to hardware integration.',
       p2: 'My journey has allowed me to master the latest web technologies (React, Node.js, TypeScript) while developing solid expertise in electronics and embedded systems programming (Arduino, ESP32, IoT).',
       leadership:
@@ -113,6 +147,7 @@ export const translations = {
     },
     contact: {
       title: 'Contact Me',
+      subtitle: 'An idea? A project? Do not hesitate to write to me.',
       name: 'Name',
       email: 'Email',
       message: 'Message',
@@ -125,6 +160,9 @@ export const translations = {
     },
     footer: {
       rights: 'All rights reserved',
+      description: 'Developer passionate about Web and IoT, creating innovative solutions for tomorrow.',
+      quickLinks: 'Quick Links',
+      social: 'Social Media',
     },
   },
 }

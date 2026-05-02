@@ -8,9 +8,12 @@ export default function About() {
   return (
     <section className="py-20 px-4 bg-white dark:bg-gray-900 transition-colors duration-300">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-4xl font-bold text-center text-gray-900 dark:text-white mb-4">
+        <h2 className="text-4xl font-bold text-center text-gray-900 dark:text-white mb-2">
           {t.title}
         </h2>
+        <p className="text-center text-gray-600 dark:text-gray-400 mb-4 max-w-2xl mx-auto">
+          {t.subtitle}
+        </p>
         <div className="w-24 h-1 bg-blue-600 dark:bg-blue-400 mx-auto mb-12 rounded-full" />
 
         <div className="flex flex-col md:flex-row gap-10 items-center">

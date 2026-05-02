@@ -38,9 +38,12 @@ export default function Skills() {
   return (
     <section className="py-20 px-4 bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-4xl font-bold text-center text-gray-900 dark:text-white mb-4 animate-fadeIn">
+        <h2 className="text-4xl font-bold text-center text-gray-900 dark:text-white mb-2 animate-fadeIn">
           {t.title}
         </h2>
+        <p className="text-center text-gray-600 dark:text-gray-400 mb-4 max-w-2xl mx-auto">
+          {t.subtitle}
+        </p>
         <div className="w-24 h-1 bg-blue-600 dark:bg-blue-400 mx-auto mb-12 rounded-full" />
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">

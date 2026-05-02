@@ -4,6 +4,7 @@ import Projects from '../sections/Projects.jsx'
 import Hero from '../components/Hero.jsx'
 import About from '../sections/About.jsx'
 import Services from '../sections/Services.jsx'
+import Resume from '../sections/Resume.jsx'
 import Testimonials from '../sections/Testimonials.jsx'
 import Contact from '../sections/Contact.jsx'
 import Footer from '../components/Footer.jsx'
@@ -14,6 +15,7 @@ export default function PortfolioLayout() {
   const projectsRef = useRef(null)
   const skillsRef = useRef(null)
   const servicesRef = useRef(null)
+  const resumeRef = useRef(null)
   const aboutRef = useRef(null)
   const testimonialsRef = useRef(null)
   const contactRef = useRef(null)
@@ -22,7 +24,7 @@ export default function PortfolioLayout() {
     ref.current?.scrollIntoView({ behavior: 'smooth' })
   }
 
-  const refs = { heroRef, projectsRef, skillsRef, servicesRef, aboutRef, testimonialsRef, contactRef }
+  const refs = { heroRef, projectsRef, skillsRef, servicesRef, resumeRef, aboutRef, testimonialsRef, contactRef }
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
@@ -42,6 +44,10 @@ export default function PortfolioLayout() {
 
       <div ref={servicesRef}>
         <Services />
+      </div>
+
+      <div ref={resumeRef}>
+        <Resume resumeRef={resumeRef} />
       </div>
 
       <div ref={aboutRef}>
