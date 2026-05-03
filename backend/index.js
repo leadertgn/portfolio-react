@@ -44,7 +44,7 @@ if (SELF_URL) {
     } catch (e) {
       console.error('Self-ping error:', e.message);
     }
-  }, 14 * 60 * 1000);
+  }, 10 * 60 * 1000);
 }
 
 // Logger de requêtes avancé
