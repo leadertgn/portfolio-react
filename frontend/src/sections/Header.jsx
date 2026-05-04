@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Menu, X, Sun, Moon, Globe } from 'lucide-react'
+import { Menu, X, Sun, Moon, Languages } from 'lucide-react'
 import { useTheme } from '../contexts/ThemeContext'
 import { useLang } from '../contexts/LanguageContext'
 import { translations } from '../data/translations'
@@ -70,11 +70,11 @@ function Header({ scrollToSection, refs }) {
             {/* Language */}
             <button
               onClick={toggleLang}
-              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors flex items-center gap-1 text-sm font-medium text-gray-700 dark:text-gray-300"
+              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors flex items-center gap-1.5 text-xs font-bold text-gray-700 dark:text-gray-300"
               aria-label="Toggle language"
             >
-              <Globe size={18} />
-              <span className="hidden sm:inline">{lang.toUpperCase()}</span>
+              <Languages size={18} className="text-blue-600 dark:text-blue-400" />
+              <span>{lang.toUpperCase()}</span>
             </button>
 
             {/* Mobile Toggle */}
