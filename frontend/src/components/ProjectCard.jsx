@@ -33,25 +33,34 @@ export default function ProjectCard({ image, title, description, links, stack, c
 
   const displayTitle = typeof title === 'object' ? title[lang] : title
   const displayDescription = typeof description === 'object' ? description[lang] : description
-  const currentCaseStudy = caseStudy ? (caseStudy[lang] || caseStudy.fr) : null
+  const currentCaseStudy = caseStudy ? caseStudy[lang] || caseStudy.fr : null
 
   // Extraire l'URL du live / site web
-  const liveUrl = links?.live && links.live !== '#' && links.live !== ''
-    ? links.live
-    : links?.website && links.website !== '#' && links.website !== ''
-      ? links.website
-      : null
+  const liveUrl =
+    links?.live && links.live !== '#' && links.live !== ''
+      ? links.live
+      : links?.website && links.website !== '#' && links.website !== ''
+        ? links.website
+        : links?.Website && links.Website !== '#' && links.Website !== ''
+          ? links.Website
+          : links?.url && links.url !== '#' && links.url !== ''
+            ? links.url
+            : null
 
-  const githubUrl = links?.github && links.github !== '#' && links.github !== ''
-    ? links.github
-    : null
+  const githubUrl =
+    links?.github && links.github !== '#' && links.github !== ''
+      ? links.github
+      : links?.GitHub && links.GitHub !== '#' && links.GitHub !== ''
+        ? links.GitHub
+        : links?.Github && links.Github !== '#' && links.Github !== ''
+          ? links.Github
+          : null
 
   const hasCaseStudy = currentCaseStudy && currentCaseStudy.problem
 
   return (
     <>
       <div className="group bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 flex flex-col">
-
         {/* Image cliquable → Live URL */}
         <div className="relative overflow-hidden h-48 shrink-0">
           {liveUrl ? (
@@ -67,7 +76,7 @@ export default function ProjectCard({ image, title, description, links, stack, c
                 alt={displayTitle}
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
               />
-              
+
               {/* Badge "Live" permanent (Surtout pour Mobile) */}
               <div className="absolute top-3 right-3 z-10">
                 <span className="flex items-center gap-1.5 bg-blue-600/90 text-white text-[10px] uppercase font-bold px-2 py-1 rounded-md backdrop-blur-sm border border-blue-400/30 shadow-lg">
@@ -91,18 +100,18 @@ export default function ProjectCard({ image, title, description, links, stack, c
                 alt={displayTitle}
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </>
           )}
         </div>
 
         {/* Content */}
-        <div className="p-6 flex flex-col flex-grow">
+        <div className="p-6 flex flex-col grow">
           <h3 className="text-lg font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-2 line-clamp-1">
             {displayTitle}
           </h3>
 
-          <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4 flex-grow text-sm line-clamp-3">
+          <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4 grow text-sm line-clamp-3">
             {displayDescription}
           </p>
 
@@ -140,67 +149,70 @@ export default function ProjectCard({ image, title, description, links, stack, c
       </div>
 
       {/* Modal via React Portal */}
-      {isModalOpen && currentCaseStudy && createPortal(
-        <div
-          role="dialog"
-          aria-modal="true"
-          className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm cursor-pointer"
-          onClick={() => setIsModalOpen(false)}
-        >
+      {isModalOpen &&
+        currentCaseStudy &&
+        createPortal(
           <div
-            className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[85vh] flex flex-col relative cursor-default overflow-hidden"
-            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            className="fixed inset-0 z-9999 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm cursor-pointer"
+            onClick={() => setIsModalOpen(false)}
           >
-            {/* Header modal */}
-            <div className="flex items-center justify-between p-5 border-b border-gray-100 dark:border-gray-700">
-              <h2 className="text-xl font-bold text-gray-900 dark:text-white">
-                {displayTitle}
-              </h2>
-              <button
-                onClick={() => setIsModalOpen(false)}
-                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
-              >
-                <X size={20} />
-              </button>
-            </div>
+            <div
+              className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[85vh] flex flex-col relative cursor-default overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Header modal */}
+              <div className="flex items-center justify-between p-5 border-b border-gray-100 dark:border-gray-700">
+                <h2 className="text-xl font-bold text-gray-900 dark:text-white">{displayTitle}</h2>
+                <button
+                  onClick={() => setIsModalOpen(false)}
+                  className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
+                >
+                  <X size={20} />
+                </button>
+              </div>
 
-            {/* Body modal */}
-            <div className="overflow-y-auto p-6 space-y-6">
-              {[
-                { title: t.problem, content: currentCaseStudy.problem, color: 'red' },
-                { title: t.solution, content: currentCaseStudy.solution, color: 'blue' },
-                { title: t.results, content: currentCaseStudy.results, color: 'green' }
-              ].map((section) => (
-                section.content && (
-                  <div key={section.title} className="space-y-2">
-                    <h3 className={`text-xs font-black uppercase tracking-widest text-${section.color}-600 dark:text-${section.color}-400`}>
-                      {section.title}
-                    </h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-                      {section.content}
-                    </p>
+              {/* Body modal */}
+              <div className="overflow-y-auto p-6 space-y-6">
+                {[
+                  { title: t.problem, content: currentCaseStudy.problem, color: 'red' },
+                  { title: t.solution, content: currentCaseStudy.solution, color: 'blue' },
+                  { title: t.results, content: currentCaseStudy.results, color: 'green' },
+                ].map(
+                  (section) =>
+                    section.content && (
+                      <div key={section.title} className="space-y-2">
+                        <h3
+                          className={`text-xs font-black uppercase tracking-widest text-${section.color}-600 dark:text-${section.color}-400`}
+                        >
+                          {section.title}
+                        </h3>
+                        <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                          {section.content}
+                        </p>
+                      </div>
+                    )
+                )}
+
+                {liveUrl && (
+                  <div className="pt-4">
+                    <a
+                      href={liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-bold transition-all"
+                    >
+                      <ExternalLink size={18} />
+                      {t.viewSite}
+                    </a>
                   </div>
-                )
-              ))}
-
-              {liveUrl && (
-                <div className="pt-4">
-                  <a
-                    href={liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-bold transition-all"
-                  >
-                    <ExternalLink size={18} />
-                    {t.viewSite}
-                  </a>
-                </div>
-              )}
+                )}
+              </div>
             </div>
-          </div>
-        </div>,
-        document.body
-      )}
+          </div>,
+          document.body
+        )}
     </>
   )
 }

@@ -7,8 +7,11 @@ backend/node_modules/
 # Frontend
 frontend/dist/
 frontend/dist-ssr/
+# Generated data backups
+frontend/src/data/.backups/
 # Backend (future)
 backend/dist/
+backend/exports/
 .dist/
 
 # Logs

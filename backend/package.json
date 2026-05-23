@@ -7,6 +7,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
+    "export-seed": "node scripts/exportSeed.js",
     "prisma:generate": "prisma generate",
     "prisma:studio": "prisma studio"
   },

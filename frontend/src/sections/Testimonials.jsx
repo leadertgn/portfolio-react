@@ -3,6 +3,7 @@ import { useLang } from '../contexts/LanguageContext'
 import { translations } from '../data/translations'
 import { Quote, User } from 'lucide-react'
 import axios from 'axios'
+import { testimonials as localTestimonials } from '../data/testimonials'
 
 import { TestimonialSkeleton } from '../components/Skeletons'
 
@@ -13,13 +14,16 @@ export default function Testimonials() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    axios.get(`${import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000'}/api/testimonials`)
-      .then(res => {
-        setTestimonials(res.data)
+    axios
+      .get(`${import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000'}/api/testimonials`)
+      .then((res) => {
+        const apiTestimonials = Array.isArray(res.data) ? res.data : []
+        setTestimonials(apiTestimonials.length > 0 ? apiTestimonials : localTestimonials)
         setLoading(false)
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err)
+        setTestimonials(localTestimonials)
         setLoading(false)
       })
   }, [])
@@ -38,39 +42,44 @@ export default function Testimonials() {
         <div className="w-24 h-1 bg-blue-600 dark:bg-blue-400 mx-auto mb-16 rounded-full" />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {loading ? (
-            Array.from({ length: 3 }).map((_, i) => <TestimonialSkeleton key={i} />)
-          ) : (
-            testimonials.map((testi) => (
-            <div 
-              key={testi.id} 
-              className="bg-blue-50/50 dark:bg-gray-800/50 p-8 rounded-2xl relative shadow-sm border border-blue-100 dark:border-gray-800"
-            >
-              <Quote className="absolute top-6 right-6 text-blue-200 dark:text-blue-900/40" size={48} />
-              
-              <p className="text-gray-700 dark:text-gray-300 italic mb-8 relative z-10 leading-relaxed">
-                "{testi.content[lang] || testi.content.fr}"
-              </p>
-              
-              <div className="flex items-center gap-4 mt-auto">
-                {testi.image ? (
-                  <img src={testi.image} alt={testi.name} className="w-14 h-14 rounded-full object-cover shadow-md" />
-                ) : (
-                  <div className="w-14 h-14 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center text-blue-600 dark:text-blue-400 shadow-md">
-                    <User size={24} />
-                  </div>
-                )}
-                <div>
-                  <h4 className="font-bold text-gray-900 dark:text-white">{testi.name}</h4>
-                  <p className="text-sm text-blue-600 dark:text-blue-400">
-                    {testi.role && (testi.role[lang] || testi.role.fr)}
+          {loading
+            ? Array.from({ length: 3 }).map((_, i) => <TestimonialSkeleton key={i} />)
+            : testimonials.map((testi) => (
+                <div
+                  key={testi.id}
+                  className="bg-blue-50/50 dark:bg-gray-800/50 p-8 rounded-2xl relative shadow-sm border border-blue-100 dark:border-gray-800"
+                >
+                  <Quote
+                    className="absolute top-6 right-6 text-blue-200 dark:text-blue-900/40"
+                    size={48}
+                  />
+
+                  <p className="text-gray-700 dark:text-gray-300 italic mb-8 relative z-10 leading-relaxed">
+                    "{testi.content[lang] || testi.content.fr}"
                   </p>
+
+                  <div className="flex items-center gap-4 mt-auto">
+                    {testi.image ? (
+                      <img
+                        src={testi.image}
+                        alt={testi.name}
+                        className="w-14 h-14 rounded-full object-cover shadow-md"
+                      />
+                    ) : (
+                      <div className="w-14 h-14 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center text-blue-600 dark:text-blue-400 shadow-md">
+                        <User size={24} />
+                      </div>
+                    )}
+                    <div>
+                      <h4 className="font-bold text-gray-900 dark:text-white">{testi.name}</h4>
+                      <p className="text-sm text-blue-600 dark:text-blue-400">
+                        {testi.role && (testi.role[lang] || testi.role.fr)}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          ))
-        )}
-      </div>
+              ))}
+        </div>
       </div>
     </section>
   )
