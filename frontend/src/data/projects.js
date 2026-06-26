@@ -1,4 +1,48 @@
 export const projects = [
+  // 🔥 PROJET 1 : CircuitVision AI (le plus important pour MEST)
+  {
+    "id": 44,
+    "title": {
+      "en": "CircuitVision AI",
+      "fr": "CircuitVision AI"
+    },
+    "description": {
+      "en": "AI tool that analyzes GitHub hardware projects and generates complete documentation, bug detection, and component lists in 25 seconds.",
+      "fr": "Outil IA qui analyse des projets hardware GitHub et génère documentation complète, détection de bugs et liste de composants en 25 secondes."
+    },
+    "stack": [
+      {
+        "name": "Next.js"
+      },
+      {
+        "name": "Gemini 3 API"
+      },
+      {
+        "name": "Firebase"
+      },
+      {
+        "name": "GitHub API"
+      }
+    ],
+    "image": "https://res.cloudinary.com/dv9emizzs/image/upload/v1782477412/circuitvision_lyctnm.png",
+    "links": {
+      "github": "https://github.com/leadertgn/circuitvision-ai",
+      "live": "https://circuit-vision-ai.vercel.app/"
+    },
+    "caseStudy": {
+      "en": {
+        "problem": "After spending 2 weeks debugging an ESP8266 for SmartGrow and 5 hours manually documenting the project, I realized that African makers waste precious time due to the lack of automated tools for hardware documentation and debugging.",
+        "solution": "I built CircuitVision AI in 12 days for the Gemini 3 hackathon on Devpost. The tool analyzes a GitHub repo, generates complete documentation in 8 sections, detects bugs (voltage, pins, timing, security), and lists components with real-time prices via integrated Google Search.",
+        "results": "The prototype is deployed and received encouraging community feedback (17 reactions, 8 comments, 552 impressions on LinkedIn). The project was submitted to the Gemini 3 hackathon and is available as a live demo."
+      },
+      "fr": {
+        "problem": "Après avoir passé 2 semaines à debugger un ESP8266 pour SmartGrow et 5 heures à documenter manuellement le projet, j'ai réalisé que les makers africains perdent un temps précieux à cause de l'absence d'outils automatisés pour la documentation et le debugging hardware.",
+        "solution": "J'ai développé CircuitVision AI en 12 jours pour le hackathon Gemini 3 sur Devpost. L'outil analyse un dépôt GitHub, génère une documentation complète en 8 sections, détecte les bugs (voltage, pins, timing, sécurité), et liste les composants avec prix en temps réel via Google Search intégré.",
+        "results": "Le prototype est déployé et a reçu des retours encourageants de la communauté (17 réactions, 8 commentaires, 552 impressions sur LinkedIn). Le projet a été soumis au hackathon Gemini 3 et est disponible en démonstration en ligne."
+      }
+    },
+    "order": 0
+  },
   {
     "id": 39,
     "title": {
@@ -199,7 +243,7 @@ export const projects = [
         "solution": "Creation of a Full Stack system with admin space secured by Google OAuth 2.0. PostgreSQL database for dynamic content management."
       },
       "fr": {
-        "problem": "Les portfolios statiques sont difficiles à maintenir et ne permettent pas de démontrer des compétences backend en temps réel.",
+        "problem": "Les portfolios statiques sont difficiles à maintenir et ne permettent pas de démonstration de compétences backend en temps réel.",
         "results": "Une vitrine vivante et auto-hébergée qui sert elle-même de démonstration technique de mes capacités en développement Web moderne.",
         "solution": "Création d'un système Full Stack avec espace admin sécurisé par Google OAuth 2.0. Base de données PostgreSQL pour une gestion dynamique des contenus."
       }
